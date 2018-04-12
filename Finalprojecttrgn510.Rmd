@@ -1,0 +1,18 @@
+---
+title: Final_project:Creating a 3D Visualization for 938 unrelated individuals from
+  the Human Genome Diversity Project.
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+setwd("/Users/bioinf/Desktop/Final_project/HGDP/")
+```
+
+```{r}
+read.table("/Users/bioinf/Desktop/Final_project/HGDP/HGDP_938.RefPC.coord")
+```
+
