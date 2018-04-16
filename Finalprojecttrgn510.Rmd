@@ -13,6 +13,5 @@ setwd("/Users/bioinf/Desktop/Final_project/HGDP/")
 ```
 
 ```{r}
-read.table("/Users/bioinf/Desktop/Final_project/HGDP/HGDP_938.RefPC.coord")
+genotypes <- read.table("/Users/bioinf/Desktop/Final_project/HGDP/HGDP_938.RefPC.coord")
 ```
-
