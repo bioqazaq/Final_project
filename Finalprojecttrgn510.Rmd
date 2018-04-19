@@ -9,9 +9,39 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-setwd("/Users/bioinf/Desktop/Final_project/HGDP/")
+genotypes<-read.table("/Users/bioinf/Desktop/Final_project/example/HGDP_238_chr22.geno",sep="\t", header=FALSE)
 ```
 
 ```{r}
-genotypes <- read.table("/Users/bioinf/Desktop/Final_project/HGDP/HGDP_938.RefPC.coord")
+selectedgenotypes <- select(genotypes, V2:V200)
 ```
+
+```{r}
+principal_components <- prcomp(selectedgenotypes[,-1])
+```
+
+```{r}
+plot(principal_components, type = "l")
+```
+
+
+```{r}
+library(plotly)
+pcadf<-data.frame(principal_components$rotation)
+  plot_ly(data = pcadf, x = ~PC1, y = ~PC2, text = rownames(pcadf))
+```
+
+```{r}
+plot_ly(pcadf, x = ~PC1, y = ~PC2, z = ~PC3, color = ~PC4, colors = c('#BF382A', '#0C4B8E')) %>%
+ add_markers() %>%
+ layout(scene = list(xaxis = list(title = 'PC1'),
+ yaxis = list(title = 'PC2'),
+ zaxis = list(title = 'PC3')))
+```
+
+```{r}
+selectedgenotypes$V2 <- rownames(selectedgenotypes)
+pcadf$V2 <- rownames(pcadf)
+samples<-inner_join(selectedgenotypes,pcadf,by="V2")
+```
+
