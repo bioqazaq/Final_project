@@ -12,12 +12,17 @@ knitr::opts_chunk$set(echo = TRUE)
 genotypes<-read.table("/Users/bioinf/Desktop/Final_project/example/HGDP_238_chr22.geno",sep="\t", header=FALSE)
 ```
 
+#sample2anc$superpopulation <- NA
 ```{r}
-selectedgenotypes <- select(genotypes, V2:V200)
+library(dplyr)
+selectedgenotypes <- select(genotypes, V3:V201)
+rownames(selectedgenotypes) <- genotypes$V2
+sample2anc<-select(genotypes, V1:V2)
+selectedgenotypes<- t(selectedgenotypes)
 ```
 
 ```{r}
-principal_components <- prcomp(selectedgenotypes[,-1])
+principal_components <- prcomp(selectedgenotypes, center = TRUE,scale. = TRUE)
 ```
 
 ```{r}
@@ -32,7 +37,11 @@ pcadf<-data.frame(principal_components$rotation)
 ```
 
 ```{r}
-plot_ly(pcadf, x = ~PC1, y = ~PC2, z = ~PC3, color = ~PC4, colors = c('#BF382A', '#0C4B8E')) %>%
+population1 <-read.table("/Users/bioinf/Desktop/Final_project/for_dplyrnew.txt", sep="\t", header = FALSE)
+```
+
+```{r}
+plot_ly(pcadf, x =~PC1, y = ~PC1, z = ~PC2,  color = samples$V1.y, colors = "Set1" ) %>%
  add_markers() %>%
  layout(scene = list(xaxis = list(title = 'PC1'),
  yaxis = list(title = 'PC2'),
@@ -40,8 +49,8 @@ plot_ly(pcadf, x = ~PC1, y = ~PC2, z = ~PC3, color = ~PC4, colors = c('#BF382A',
 ```
 
 ```{r}
-selectedgenotypes$V2 <- rownames(selectedgenotypes)
-pcadf$V2 <- rownames(pcadf)
-samples<-inner_join(selectedgenotypes,pcadf,by="V2")
+#selectedgenotypes$V2 <- rownames(selectedgenotypes)
+#pcadf$V2 <- rownames(pcadf)
+samples<- dplyr::left_join(sample2anc,population1, by="V2")
 ```
 
