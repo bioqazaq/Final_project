@@ -1,6 +1,6 @@
-** Project title: Creating a Web-app showing a 3-D graph where my colors code the different regions depending genotype of people. 
+** Project title: Creating a Web-app showing a 3-D graph where my colors code the different regions depending genotype of people. **
 
-* I downloaded data of 938 people from website by using wget command
+* I downloaded data of 938 people from website by using wget command *
 
 wget http://csg.sph.umich.edu/chaolong/LASER/HGDP-938-632958.tar.gz
 
