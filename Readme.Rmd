@@ -8,9 +8,9 @@
 
 ``usc-secure-wireless-015-070:~ bioinf$ cd Desktop/Final_project/``
 
-"usc-secure-wireless-015-070:Final_project bioinf$ ls"
-`example`					
-`HGDP`
+``usc-secure-wireless-015-070:Final_project bioinf$ ls
+example``					
+> HGDP 
 
 (2) For the processing procedure Wang, C. et al. (2014) Ancestry estimation and control of population stratification for sequence-based association studies. Nature Genetics, 46: 409-415.
 Final project title: Creating a 3D Visualization for 938 unrelated individuals from the Human Genome Diversity Project.
