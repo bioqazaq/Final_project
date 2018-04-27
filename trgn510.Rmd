@@ -1,0 +1,72 @@
+---
+title: "Final_Project_510"
+author: "Zhassulan Zhaniyazov"
+date: "4/25/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+genotypes<-read.table("/Users/bioinf/Desktop/Final_project/example/HGDP_238_chr22.geno",sep="\t", header=FALSE)
+```
+
+#sample2anc$superpopulation <- NA
+```{r}
+library(dplyr)
+selectedgenotypes <- select(genotypes, V3:V500)
+rownames(selectedgenotypes) <- genotypes$V2
+sample2anc<-select(genotypes, V1:V2)
+selectedgenotypes<- t(selectedgenotypes)
+
+```
+
+```{r}
+principal_components <- prcomp(selectedgenotypes, center = TRUE,scale. = TRUE)
+```
+
+```{r}
+plot(principal_components, type = "l")
+```
+
+
+```{r}
+library(plotly)
+pcadf<-data.frame(principal_components$rotation)
+  plot_ly(data = pcadf, x = ~PC1, y = ~PC2, text = rownames(pcadf))
+```
+
+```{r}
+population1 <-read.table("/Users/bioinf/Desktop/Final_project/for_dplyrnew.txt", sep="\t", header = FALSE)
+```
+
+```{r}
+for_shiny <- plot_ly(pcadf, x =~PC1, y = ~PC1, z = ~PC3,  color = samples$V1.y, colors = "Set1" ) %>%
+ add_markers() %>%
+ layout(scene = list(xaxis = list(title = 'PC1'),
+ yaxis = list(title = 'PC2'),
+ zaxis = list(title = 'PC3')))
+```
+
+```{r}
+for_shiny
+```
+
+
+```{r}
+#selectedgenotypes$V2 <- rownames(selectedgenotypes)
+#pcadf$V2 <- rownames(pcadf)
+samples<- dplyr::left_join(sample2anc,population1, by="V2")
+```
+
+```{r}
+ rsnumbers <- read.table("/Users/bioinf/Desktop/Final_project/rsnumbersusedfor1000g.txt", sep="\t", header = FALSE)
+
+mygenotypeschr22from23andme <- read.table("/Users/bioinf/Desktop/Final_project/mygenotypechr22.txt", sep="\t", header = FALSE)
+ sortedmy22chrgen <- dplyr::left_join(rsnumbers, mygenotypeschr22from23andme, by="V1")
+ write.table(sortedmy22chrgen, "sortedmygenes.txt", sep="\t")
+ 
+```
