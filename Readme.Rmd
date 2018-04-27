@@ -6,6 +6,12 @@
  
  I used data set which is provided in the LASER software, the data processing procedure description in the supplementary materials of the LASER paper (Wang et. al., 2014), (1) For the original HGDP data Li, J.Z. et al. (2008) Worldwide human relationships inferred from genome-wide patterns of variation. Science, 319: 1100-1104. (2) For the processing procedure Wang, C. et al. (2014) Ancestry estimation and control of population stratification for sequence-based association studies. Nature Genetics, 46: 409-415.
 
+`usc-secure-wireless-015-070:~ bioinf$ cd Desktop/Final_project/
+
+usc-secure-wireless-015-070:Final_project bioinf$ ls
+example					
+HGDP`
+
 (2) For the processing procedure Wang, C. et al. (2014) Ancestry estimation and control of population stratification for sequence-based association studies. Nature Genetics, 46: 409-415.
 Final project title: Creating a 3D Visualization for 938 unrelated individuals from the Human Genome Diversity Project.
 
