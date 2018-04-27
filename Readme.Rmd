@@ -1,9 +1,13 @@
-**Project title: Creating a Web-app showing a 3-D graph where my colors code the different regions depending genotype of people.**
+**Project title: Creating a 3D Visualization for 938 unrelated individuals from the Human Genome Diversity Project **
 
 *I downloaded data of 938 people from website by using wget command*
 
 `wget http://csg.sph.umich.edu/chaolong/LASER/HGDP-938-632958.tar.gz`
+ 
+ I used data set which is provided in the LASER software, the data processing procedure description in the supplementary materials of the LASER paper (Wang et. al., 2014), (1) For the original HGDP data Li, J.Z. et al. (2008) Worldwide human relationships inferred from genome-wide patterns of variation. Science, 319: 1100-1104. (2) For the processing procedure Wang, C. et al. (2014) Ancestry estimation and control of population stratification for sequence-based association studies. Nature Genetics, 46: 409-415.
 
+(2) For the processing procedure Wang, C. et al. (2014) Ancestry estimation and control of population stratification for sequence-based association studies. Nature Genetics, 46: 409-415.
+Final project title: Creating a 3D Visualization for 938 unrelated individuals from the Human Genome Diversity Project.
 
 Getting access from the genomic SNP calls from an ethnically diverse panel. http://csg.sph.umich.edu/chaolong/LASER/ provides you the location (its on the Stanford site)
 Load the data into R, and conduct PCA analysis.
