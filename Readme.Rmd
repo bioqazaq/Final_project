@@ -1,13 +1,7 @@
----
-title: "Final_Project_510"
-author: "Zhassulan Zhaniyazov"
-date: "4/25/2018"
-output: html_document
----
 
 **Creating a 3D Visualization for 938 unrelated individuals from the Human Genome Diversity Project**
 
-*I downloaded data of 938 people from website by using wget command*
+*data of 938 people was downloaded from website by using wget command*
 
 ```{bash}
 wget http://csg.sph.umich.edu/chaolong/LASER/HGDP-938-632958.tar.gz
