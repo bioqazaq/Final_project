@@ -9,7 +9,9 @@ output: html_document
 
 *I downloaded data of 938 people from website by using wget command*
 
-`wget http://csg.sph.umich.edu/chaolong/LASER/HGDP-938-632958.tar.gz`
+```{bash}
+wget http://csg.sph.umich.edu/chaolong/LASER/HGDP-938-632958.tar.gz
+```
 
 I used data set which is provided in the LASER software, the data processing procedure description in the supplementary materials of the LASER paper (Wang et. al., 2014), (1) For the original HGDP data Li, J.Z. et al. (2008) Worldwide human relationships inferred from genome-wide patterns of variation. Science, 319: 1100-1104. (2) For the processing procedure Wang, C. et al. (2014) Ancestry estimation and control of population stratification for sequence-based association studies. Nature Genetics, 46: 409-415.
 
@@ -20,29 +22,33 @@ example
 HGDP
 ```
 
-(2) For the processing procedure Wang, C. et al. (2014) Ancestry estimation and control of population stratification for sequence-based association studies. Nature Genetics, 46: 409-415. Final project title: Creating a 3D Visualization for 938 unrelated individuals from the Human Genome Diversity Project.
+**For my project I used data of 238 people, and used file that contains information about genotypes**
+
 ```{r}
 genotypes<-read.table("/Users/bioinf/Desktop/Final_project/example/HGDP_238_chr22.geno",sep="\t", header=FALSE)
 ```
-
-#sample2anc$superpopulation <- NA
+**Then 1000 variations were subselected, and dataframe "selectedgenotypes was transposed"**
 ```{r}
 library(dplyr)
-selectedgenotypes <- select(genotypes, V3:V500)
+selectedgenotypes <- select(genotypes, V3:V1000)
 rownames(selectedgenotypes) <- genotypes$V2
 sample2anc<-select(genotypes, V1:V2)
 selectedgenotypes<- t(selectedgenotypes)
-
 ```
 
+*Then, we wanted to color 3D graph depending on superpopulations. Googling helped us to find excel table files that have information about to which supergroup relate our individulas. You can download the second or third file that searching result gives. https://www.google.com/search?q=HGDP000001+Brahui+Asia&oq=HGDP000001+Brahui+Asia&aqs=chrome..69i57.31319j1j4&sourceid=chrome&ie=UTF-8. Then, columns with individual names and group names were selected, and we joined these selected columns with already existed data table "sample2anc" that had samples names* 
+
+
+```{r}
+samples<- dplyr::left_join(sample2anc,population1, by="V2")
+```
+
+**For Principal component analyse the prcomp function was used**
 ```{r}
 principal_components <- prcomp(selectedgenotypes, center = TRUE,scale. = TRUE)
-```
-
-```{r}
 plot(principal_components, type = "l")
 ```
-
+**New dataframe "pcadf" was created**
 
 ```{r}
 library(plotly)
@@ -55,7 +61,7 @@ population1 <-read.table("/Users/bioinf/Desktop/Final_project/for_dplyrnew.txt",
 ```
 
 ```{r}
-for_shiny <- plot_ly(pcadf, x =~PC1, y = ~PC1, z = ~PC3,  color = samples$V1.y, colors = "Set1" ) %>%
+for_shiny <- plot_ly(pcadf, x =~PC1, y = ~PC2, z = ~PC3,  color = samples$V1.y, colors = "Set1" ) %>%
  add_markers() %>%
  layout(scene = list(xaxis = list(title = 'PC1'),
  yaxis = list(title = 'PC2'),
@@ -66,18 +72,3 @@ for_shiny <- plot_ly(pcadf, x =~PC1, y = ~PC1, z = ~PC3,  color = samples$V1.y, 
 for_shiny
 ```
 
-
-```{r}
-#selectedgenotypes$V2 <- rownames(selectedgenotypes)
-#pcadf$V2 <- rownames(pcadf)
-samples<- dplyr::left_join(sample2anc,population1, by="V2")
-```
-
-```{r}
- rsnumbers <- read.table("/Users/bioinf/Desktop/Final_project/rsnumbersusedfor1000g.txt", sep="\t", header = FALSE)
-
-mygenotypeschr22from23andme <- read.table("/Users/bioinf/Desktop/Final_project/mygenotypechr22.txt", sep="\t", header = FALSE)
- sortedmy22chrgen <- dplyr::left_join(rsnumbers, mygenotypeschr22from23andme, by="V1")
- write.table(sortedmy22chrgen, "sortedmygenes.txt", sep="\t")
- 
-```
