@@ -46,7 +46,7 @@ samples<- dplyr::left_join(sample2anc,population1, by="V2")
 principal_components <- prcomp(selectedgenotypes, center = TRUE,scale. = TRUE)
 plot(principal_components, type = "l")
 ```
-#### **7.** *New dataframe "pcadf" was created*
+#### **7.** *New dataframe "pcadf1" was created*
 
 ```{r}
 library(plotly)
