@@ -1,5 +1,5 @@
 
-**Creating a 3D Visualization for 938 unrelated individuals from the Human Genome Diversity Project**
+# **Creating a 3D Visualization for 938 unrelated individuals from the Human Genome Diversity Project**
 
 *data of 938 people was downloaded from website by using wget command*
 
